@@ -93,8 +93,11 @@ export default defineConfig([
       ], // baseline 22/11/2026: 4 violações
       "max-nested-callbacks": ["warn", 3], // baseline 22/11/2026: 0 violações
       "quality/max-lines": ["warn", { max: 350 }], // baseline 22/11/2026: 4 violações
-      // Não há módulo de log no projeto, então não existe bloco "off".
-      "quality/no-direct-console": ["warn", { logger: "um logger do projeto" }], // baseline 22/11/2026: 20 violações
+      // Módulo de log = lib/log.ts (só repassa para o console); ele tem o
+      // bloco "off" mais abaixo. As 9 que sobram são das funções de pagamento
+      // (supabase/functions/greenn-webhook e hotmart-webhook, Deno, sem o
+      // alias @/), que ficam de fora da faxina.
+      "quality/no-direct-console": ["warn", { logger: "o lib/log.ts" }], // baseline 22/11/2026: 9 violações
       // Módulo de dados = lib/supabase.ts (REST do Supabase com a chave
       // service_role, sem SDK). Ele não exporta um "client": exporta as
       // funções abaixo. Apresentação = componentes e páginas .tsx, e hooks/.
@@ -117,6 +120,11 @@ export default defineConfig([
         },
       ],
     },
+  },
+  {
+    // O próprio módulo de log é o único lugar que chama o console direto.
+    files: ["lib/log.ts"],
+    rules: { "quality/no-direct-console": "off" },
   },
   {
     // O código já tem comentários "eslint-disable-line react-hooks/exhaustive-deps"
