@@ -129,7 +129,6 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   const realIC = Number(resumo?.ic) || 0
   const realCompras = Number(resumo?.purchases_meta) || 0
   const realVendas = Number(resumo?.vendas_real) || 0
-  const realSpend = Number(resumo?.spend) || 0
 
   // ── Testes A/B: ENCERRADOS ────────────────────────────────────────
   // Os dois cards de A/B saíram daqui (checkout e 1ª tela) porque os testes

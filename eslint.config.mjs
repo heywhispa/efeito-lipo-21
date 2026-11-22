@@ -54,7 +54,7 @@ export default defineConfig([
     // Regras do preset tseslint.configs.strict que já têm violações no código.
     // Ficam em "warn" com a contagem medida; voltam para "error" quando zerar.
     rules: {
-      "@typescript-eslint/no-explicit-any": "warn", // baseline 22/11/2026: 12 violações
+      "@typescript-eslint/no-explicit-any": "warn", // baseline 22/11/2026: 12 violações (todas nos webhooks de pagamento, fora da faxina)
       "@typescript-eslint/no-non-null-assertion": "warn", // baseline 22/11/2026: 1 violação
       "@typescript-eslint/no-dynamic-delete": "warn", // baseline 22/11/2026: 1 violação
     },
@@ -77,7 +77,7 @@ export default defineConfig([
       "no-var": "error",
       "prefer-const": "error",
       "@typescript-eslint/no-unused-vars": [
-        "warn", // baseline 22/11/2026: 4 violações
+        "warn", // baseline 22/11/2026: 3 violações (todas em app/efeito-lipo-quiz/_quiz.tsx, arquivo de checkout, fora da faxina)
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
       // The size and complexity budget is all "warn" on purpose. These
