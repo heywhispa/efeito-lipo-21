@@ -54,9 +54,9 @@ export default defineConfig([
     // Regras do preset tseslint.configs.strict que já têm violações no código.
     // Ficam em "warn" com a contagem medida; voltam para "error" quando zerar.
     rules: {
-      "@typescript-eslint/no-explicit-any": "warn", // baseline 21/11/2026: 12 violações
-      "@typescript-eslint/no-non-null-assertion": "warn", // baseline 21/11/2026: 1 violação
-      "@typescript-eslint/no-dynamic-delete": "warn", // baseline 21/11/2026: 1 violação
+      "@typescript-eslint/no-explicit-any": "warn", // baseline 22/11/2026: 12 violações
+      "@typescript-eslint/no-non-null-assertion": "warn", // baseline 22/11/2026: 1 violação
+      "@typescript-eslint/no-dynamic-delete": "warn", // baseline 22/11/2026: 1 violação
     },
   },
 
@@ -77,30 +77,30 @@ export default defineConfig([
       "no-var": "error",
       "prefer-const": "error",
       "@typescript-eslint/no-unused-vars": [
-        "warn", // baseline 21/11/2026: 4 violações
+        "warn", // baseline 22/11/2026: 4 violações
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
       // The size and complexity budget is all "warn" on purpose. These
       // numbers are a conversation starter about factoring, not a gate --
       // promote one to "error" once the count for it reaches zero.
-      complexity: ["warn", 12], // baseline 21/11/2026: 18 violações
-      "max-depth": ["warn", 4], // baseline 21/11/2026: 0 violações
-      "max-statements": ["warn", 20], // baseline 21/11/2026: 13 violações
-      "max-params": ["warn", 4], // baseline 21/11/2026: 0 violações
+      complexity: ["warn", 12], // baseline 22/11/2026: 18 violações
+      "max-depth": ["warn", 4], // baseline 22/11/2026: 0 violações
+      "max-statements": ["warn", 20], // baseline 22/11/2026: 13 violações
+      "max-params": ["warn", 4], // baseline 22/11/2026: 0 violações
       "max-lines-per-function": [
         "warn",
         { max: 150, skipBlankLines: true, skipComments: true },
-      ], // baseline 21/11/2026: 4 violações
-      "max-nested-callbacks": ["warn", 3], // baseline 21/11/2026: 0 violações
-      "quality/max-lines": ["warn", { max: 350 }], // baseline 21/11/2026: 4 violações
+      ], // baseline 22/11/2026: 4 violações
+      "max-nested-callbacks": ["warn", 3], // baseline 22/11/2026: 0 violações
+      "quality/max-lines": ["warn", { max: 350 }], // baseline 22/11/2026: 4 violações
       // Não há módulo de log no projeto, então não existe bloco "off".
-      "quality/no-direct-console": ["warn", { logger: "um logger do projeto" }], // baseline 21/11/2026: 20 violações
+      "quality/no-direct-console": ["warn", { logger: "um logger do projeto" }], // baseline 22/11/2026: 20 violações
       // Módulo de dados = lib/supabase.ts (REST do Supabase com a chave
       // service_role, sem SDK). Ele não exporta um "client": exporta as
       // funções abaixo. Apresentação = componentes e páginas .tsx, e hooks/.
       // Rotas de API (app/api/**/route.ts) são .ts e ficam de fora.
       "quality/no-direct-data-access": [
-        "warn", // baseline 21/11/2026: 12 violações
+        "warn", // baseline 22/11/2026: 12 violações
         {
           modules: ["@/lib/supabase"],
           bindings: [
