@@ -2,6 +2,8 @@
 // SOMENTE servidor — nunca importar em componentes do cliente.
 // Sem SDK: usa fetch puro pra manter o projeto leve.
 
+import { log } from '@/lib/log'
+
 // Higieniza valores de env: remove TODO espaço em branco (inclui \n e \r que
 // vazam ao colar a chave no painel). JWT/base64 e a URL não têm espaços, então
 // é seguro — e evita "TypeError: Headers.append: invalid header value".
@@ -38,7 +40,7 @@ export async function sbUpsert(table: string, row: Record<string, unknown>) {
       body: JSON.stringify(row),
     })
   } catch (e) {
-    console.error('[supabase] sbUpsert falhou:', e)
+    log.error('[supabase] sbUpsert falhou:', e)
   }
 }
 
@@ -55,7 +57,7 @@ export async function sbInsertIgnore(table: string, row: Record<string, unknown>
       body: JSON.stringify(row),
     })
   } catch (e) {
-    console.error('[supabase] sbInsertIgnore falhou:', e)
+    log.error('[supabase] sbInsertIgnore falhou:', e)
   }
 }
 
@@ -69,7 +71,7 @@ export async function sbInsert(table: string, row: Record<string, unknown>) {
       body: JSON.stringify(row),
     })
   } catch (e) {
-    console.error('[supabase] sbInsert falhou:', e)
+    log.error('[supabase] sbInsert falhou:', e)
   }
 }
 
@@ -84,12 +86,12 @@ export async function sbRpc<T = unknown>(fn: string, args: Record<string, unknow
       cache: 'no-store',
     })
     if (!res.ok) {
-      console.error(`[supabase] sbRpc ${fn} HTTP ${res.status}:`, await res.text().catch(() => ''))
+      log.error(`[supabase] sbRpc ${fn} HTTP ${res.status}:`, await res.text().catch(() => ''))
       return []
     }
     return (await res.json()) as T[]
   } catch (e) {
-    console.error('[supabase] sbRpc falhou:', e)
+    log.error('[supabase] sbRpc falhou:', e)
     return []
   }
 }
@@ -125,7 +127,7 @@ export async function sbRpcAll<T = unknown>(fn: string, args: Record<string, unk
         cache: 'no-store',
       })
       if (!res.ok) {
-        console.error(`[supabase] sbRpcAll ${fn} HTTP ${res.status}:`, await res.text().catch(() => ''))
+        log.error(`[supabase] sbRpcAll ${fn} HTTP ${res.status}:`, await res.text().catch(() => ''))
         break
       }
       const batch = (await res.json()) as T[]
@@ -134,7 +136,7 @@ export async function sbRpcAll<T = unknown>(fn: string, args: Record<string, unk
       if (batch.length < PAGE) break
     }
   } catch (e) {
-    console.error('[supabase] sbRpcAll falhou:', e)
+    log.error('[supabase] sbRpcAll falhou:', e)
   }
   return out
 }
@@ -149,12 +151,12 @@ export async function sbSelect<T = unknown>(table: string, query = ''): Promise<
       cache: 'no-store',
     })
     if (!res.ok) {
-      console.error(`[supabase] sbSelect ${table} HTTP ${res.status}:`, await res.text().catch(() => ''))
+      log.error(`[supabase] sbSelect ${table} HTTP ${res.status}:`, await res.text().catch(() => ''))
       return []
     }
     return (await res.json()) as T[]
   } catch (e) {
-    console.error('[supabase] sbSelect falhou:', e)
+    log.error('[supabase] sbSelect falhou:', e)
     return []
   }
 }
@@ -179,7 +181,7 @@ export async function sbSelectAll<T = unknown>(table: string, query = ''): Promi
         cache: 'no-store',
       })
       if (!res.ok) {
-        console.error(`[supabase] sbSelectAll ${table} HTTP ${res.status}:`, await res.text().catch(() => ''))
+        log.error(`[supabase] sbSelectAll ${table} HTTP ${res.status}:`, await res.text().catch(() => ''))
         break
       }
       const batch = (await res.json()) as T[]
@@ -189,7 +191,7 @@ export async function sbSelectAll<T = unknown>(table: string, query = ''): Promi
       if (Number.isFinite(total) && out.length >= total) break
     }
   } catch (e) {
-    console.error('[supabase] sbSelectAll falhou:', e)
+    log.error('[supabase] sbSelectAll falhou:', e)
   }
   return out
 }
